@@ -1,0 +1,15 @@
+{
+  "name": "impl-fleet-management-api-node",
+  "version": "1.0.0",
+  "description": "Project for bootcamp Laboratoria",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+  "start": "node --watch index.js"
+  },
+  "keywords": [],
+  "author": "reloadercf",
+  "license": "ISC"
+}
