@@ -1,13 +1,31 @@
 import express from 'express';
-import path from 'path';
 
 interface Options{
-    PORT: number;
-    PUBLIC_PAth: string;
+    port: number;
+    public_path?: string;
 }
-class Server {
-    public static start() {
-        console.log('Server started...');
-        
+
+export class Server {
+
+    private app = express();
+    private readonly port: number;
+    private readonly publicPath: string;
+
+    constructor(options: Options){
+        const {port, public_path = 'public'} = options;
+        this.port = port;
+        this.publicPath = public_path;
+    }
+
+    async start(){
+        // middlewares
+
+        //Public Folder
+        this.app.use(express.static(this.publicPath))
+
+        this.app.listen(this.port, ()=>{
+            console.log(`server running on port ${this.port}`);
+            
+        })
     }
 }
