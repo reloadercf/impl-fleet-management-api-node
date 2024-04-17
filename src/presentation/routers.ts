@@ -1,16 +1,11 @@
-/* eslint-disable @typescript-eslint/no-extraneous-class */
 import { Router } from 'express'
+import { TaxiRouter } from './taxi/taxiRouter'
 
 export class AppTaxiRoutes {
   static get routes (): Router {
     const router = Router()
 
-    router.get('/api/taxi', (req, res) => {
-      res.json([
-        { id: 'sdf-12', hour: '10:10pm' },
-        { id: 'lkj-19', hour: '11:11pm' }
-      ])
-    })
+    router.use('/api/taxi', TaxiRouter.routes)
     return router
   }
 }

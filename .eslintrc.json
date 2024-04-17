@@ -13,6 +13,7 @@
     "rules": {
         "@typescript-eslint/naming-convention":"off",
         "@typescript-eslint/explicit-function-return-type":"off",
-        "@typescript-eslint/no-floating-promises":"off"
+        "@typescript-eslint/no-floating-promises":"off",
+        "@typescript-eslint/no-extraneous-class":"off"
     }
 }
