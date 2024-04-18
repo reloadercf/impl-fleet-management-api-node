@@ -1,10 +1,9 @@
 import { type Request, type Response } from 'express'
+import { prisma } from '../../data/postgres'
 
 export class TaxiController {
-  public getTaxis = (req: Request, res: Response) => {
-    res.json([
-      { id: 'sdf-12', hour: '10:10pm' },
-      { id: 'lkj-19', hour: '11:11pm' }
-    ])
+  public getTaxis = async (req: Request, res: Response) => {
+    const allTaxis = await prisma.taxis.findMany()
+    res.json(allTaxis)
   }
 }
