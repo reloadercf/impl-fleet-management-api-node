@@ -1,5 +1,5 @@
 import { envs } from './config/envs'
-import { AppTaxiRoutes } from './presentation/routers';
+import { AppTaxiRoutes } from './presentation/routers'
 import { Server } from './presentation/server';
 
 (async () => {
