@@ -25,4 +25,13 @@ export class TaxiController {
       return res.json(getTaxiByPlate)
     }
   }
+
+  public getTrajectories = async (req: Request, res: Response) => {
+    if (Object.keys(req.query).length === 0) {
+      const allTrajectories = await prisma.trajectories.findMany()
+      return res.json(allTrajectories)
+    }
+  }
+
+
 }

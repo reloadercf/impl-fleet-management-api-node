@@ -6,6 +6,7 @@ export class TaxiRouter {
     const router = Router()
     const taxiController = new TaxiController()
     router.get('/', taxiController.getTaxis)
+    router.get('/trajectories', taxiController.getTrajectories)
     return router
   }
 }
