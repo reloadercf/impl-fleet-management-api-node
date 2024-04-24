@@ -19,7 +19,7 @@ export class TaxiController {
     if (req.query.plate) {
       const getTaxiByPlate = await prisma.taxis.findMany({
         where: {
-          plate: `${req.query.plate}`
+          plate: `${req.query.plate}` // hacer un cast a string
         }
       })
       return res.json(getTaxiByPlate)
@@ -31,7 +31,21 @@ export class TaxiController {
       const allTrajectories = await prisma.trajectories.findMany()
       return res.json(allTrajectories)
     }
+    if (req.query.taxi) {
+      const getTrajectoriesByTaxi = await prisma.trajectories.findMany({
+        where: {
+          taxi_id: +req.query.taxi
+        }
+      })
+      return res.json(getTrajectoriesByTaxi)
+    }
+    if (req.query.date) {
+      const getTrajectoriesByDate = await prisma.trajectories.findMany({
+        where: {
+          date: String(req.query.date)
+        }
+      })
+      return res.json(getTrajectoriesByDate)
+    }
   }
-
-
 }
