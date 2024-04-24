@@ -19,7 +19,7 @@ export class TaxiController {
     if (req.query.plate) {
       const getTaxiByPlate = await prisma.taxis.findMany({
         where: {
-          plate: `${req.query.plate}` // hacer un cast a string
+          plate: String(req.query.plate)
         }
       })
       return res.json(getTaxiByPlate)
