@@ -48,4 +48,24 @@ export class TaxiController {
       return res.json(getTrajectoriesByDate)
     }
   }
+
+  public getLastLocationTaxis = async (req: Request, res: Response) => {
+    const id = +req.params.id
+    if (Object.keys(req.query).length === 0) {
+      const getLastLocation = await prisma.trajectories.findFirst({
+        where: {
+          taxi_id: id
+        },
+        orderBy: [
+          {
+            date: 'asc'
+          }
+        ],
+        include: {
+          taxis: true
+        }
+      })
+      return res.json(getLastLocation)
+    }
+  }
 }
