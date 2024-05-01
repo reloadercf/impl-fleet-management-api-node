@@ -26,27 +26,30 @@ export class TaxiController {
     }
   }
 
-  public getTrajectories = async (req: Request, res: Response) => {
+  public getTrajectories = async (req: Request, res: Response) => { // con fecha
     if (Object.keys(req.query).length === 0) {
       const allTrajectories = await prisma.trajectories.findMany()
       return res.json(allTrajectories)
     }
-    if (req.query.taxi) {
-      const getTrajectoriesByTaxi = await prisma.trajectories.findMany({
+    if (req.query.taxi && req.query.date) {
+      const queryDate = new Date(String(req.query.date))
+      queryDate.setDate(queryDate.getDate() + 1)
+      const subtractDay = new Date(String(req.query.date))
+      subtractDay.setDate(queryDate.getDate() - 1)
+      console.log(queryDate, 'and', subtractDay)
+      const getTrajectoriesFiltered = await prisma.trajectories.findMany({
         where: {
-          taxi_id: +req.query.taxi
+          taxi_id: +req.query.taxi,
+          AND: [
+            { date: { gte: subtractDay } },
+            { date: { lte: queryDate } }
+          ]
         }
       })
-      return res.json(getTrajectoriesByTaxi)
+      console.log(getTrajectoriesFiltered)
+      return res.json(getTrajectoriesFiltered)
     }
-    if (req.query.date) {
-      const getTrajectoriesByDate = await prisma.trajectories.findMany({
-        where: {
-          date: String(req.query.date)
-        }
-      })
-      return res.json(getTrajectoriesByDate)
-    }
+    res.status(404).send('bat request')
   }
 
   public getLastLocationTaxis = async (req: Request, res: Response) => {
