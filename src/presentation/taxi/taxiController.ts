@@ -50,19 +50,16 @@ export class TaxiController {
   }
 
   public getLastLocationTaxis = async (req: Request, res: Response) => {
-    const id = +req.params.id
     if (Object.keys(req.query).length === 0) {
-      const getLastLocation = await prisma.trajectories.findFirst({
-        where: {
-          taxi_id: id
-        },
-        orderBy: [
-          {
-            date: 'asc'
-          }
-        ],
+      const getLastLocation = await prisma.taxis.findMany({
+        relationLoadStrategy: 'join',
         include: {
-          taxis: true
+          trajectories: {
+            orderBy: {
+              date: 'desc'
+            },
+            take: 1
+          }
         }
       })
       return res.json(getLastLocation)

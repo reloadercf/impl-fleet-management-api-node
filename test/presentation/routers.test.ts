@@ -17,8 +17,8 @@ describe('API testing',()=>{
         await request(mockServer.app).get(temporalPath).expect(200)
     })
 
-    it('Should have status 200 on enpoint get on api/taxi/lastLocation:80', async()=>{
-        const temporalPath = '/api/taxi/lastLocation/80'
+    it('Should have status 200 on enpoint get on api/taxi/lastLocation', async()=>{
+        const temporalPath = '/api/taxi/lastLocation/'
         await request(mockServer.app).get(temporalPath).expect(200)
     })
 })
